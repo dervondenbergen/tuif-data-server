@@ -9,9 +9,10 @@ try {
 
 const mosca = require("mosca");
 const loadData = require("./datasource");
+const config = require("./config.js");
 
 var settings = {
-  port: 1883,
+  port: config.server.port,
   persistence: {
     factory: mosca.persistence.Memory
   }
@@ -115,23 +116,26 @@ function checkChanges(type, oldData, newData) {
 
       if (oldRbl && newRbl) {
         for (const line in oldRbl) {
-          const oldTimes = getDataString(oldRbl[line]);
-          const newTimes = getDataString(newRbl[line]);
+          const oldTimesString = getDataString(oldRbl[line]);
+          const newTimesString = getDataString(newRbl[line]);
+          const newTimes = newRbl[line].map(function(departure) {
+            return departure.time;
+          });
 
           // console.log(newRbl[line]);
 
           console.log(
             rbl,
             line,
-            oldTimes,
-            newTimes,
-            oldTimes === newTimes ? "Same" : "Update"
+            oldTimesString,
+            newTimesString,
+            oldTimesString === newTimesString ? "Same" : "Update"
           );
 
-          if (oldTimes !== newTimes) {
+          if (oldTimesString !== newTimesString) {
             server.publish({
               topic: `wl/${rbl}/${line}`,
-              payload: newTimes,
+              payload: JSON.stringify({ times: newTimes }),
               retain: true
             });
           }

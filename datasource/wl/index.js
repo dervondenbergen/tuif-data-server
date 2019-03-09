@@ -1,7 +1,7 @@
 const got = require("got");
 const queryString = require("query-string");
 
-const config = require("./config.js");
+const config = require("../../config.js");
 
 async function loadData(stations) {
   try {
