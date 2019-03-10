@@ -137,7 +137,7 @@ function checkChanges(type, oldData, newData) {
           if (oldTimesString !== newTimesString) {
             server.publish({
               topic: `wl/${rbl}/${line}`,
-              payload: JSON.stringify({ times: newTimes }),
+              payload: JSON.stringify(newTimes),
               retain: true
             });
           }
@@ -156,21 +156,21 @@ function checkChanges(type, oldData, newData) {
           if (oldStation !== newStation) {
             server.publish({
               topic: `cb/${stationid}`,
-              payload: JSON.stringify({ free: newStation }),
+              payload: JSON.stringify([newStation]),
               retain: true
             });
           }
         } else {
           server.publish({
             topic: `cb/${stationid}`,
-            payload: JSON.stringify({ free: newStation }),
+            payload: JSON.stringify([newStation]),
             retain: true
           });
         }
       } else {
         server.publish({
           topic: `cb/${stationid}`,
-          payload: JSON.stringify({ free: newStation }),
+          payload: JSON.stringify([newStation]),
           retain: true
         });
       }
