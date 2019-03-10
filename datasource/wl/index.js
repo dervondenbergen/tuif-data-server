@@ -36,7 +36,7 @@ async function loadData(stations) {
 
           departureCount =
             line.departures.departure.length > 2
-              ? 3
+              ? 2
               : line.departures.departure.length;
 
           for (let index = 0; index < departureCount; index++) {
