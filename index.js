@@ -88,10 +88,12 @@ function setup() {
 
 function showState() {
   // clear();
-  console.log("–––––––––––––––––––––––––––––––––––––––");
-  console.log(JSON.stringify({ clients }, null, 2));
-  console.log(JSON.stringify({ stations }, null, 2));
-  console.log(JSON.stringify({ data }, null, 2));
+  if (config.server.logging) {
+    console.log("–––––––––––––––––––––––––––––––––––––––");
+    console.log(JSON.stringify({ clients }, null, 2));
+    console.log(JSON.stringify({ stations }, null, 2));
+    console.log(JSON.stringify({ data }, null, 2));
+  }
 }
 
 function updateStations() {
